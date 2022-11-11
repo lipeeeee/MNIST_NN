@@ -69,4 +69,18 @@ def update_params(W1, b1, W2, b2, dW1, dB1, dW2, dB2, alpha):
     b1 = b1 - alpha * dB1
     W2 = W2 - alpha * dW2
     b2 = b2 - alpha * dB2
+
+    return W1, b1, W2, b2
+
+def gradient_descent(X, Y, iterations, alpha):
+    W1, b1, W2, b2 = init_params()
+
+    for i in range(iterations):
+        Z1, A1, Z2, A2 = foward_prop(W1, b1, W2, b2, X)
+        dW1, db1, dW2, db2 = back_prop(Z1, A1, Z2, A2, W2, X, Y)
+        W1, b1, W2, b2 = update_params(W1, b1, W2, b2, dW1, db1, dW2, db2, alpha)
+        
+        if i % 50 == 0:
+            print("Iteration: ", i)
+            print("Accuracy: ", get_accuracy(get_predictions(A2), Y))
     return W1, b1, W2, b2
