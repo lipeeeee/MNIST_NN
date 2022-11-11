@@ -17,6 +17,7 @@ data_train = data[1000:m].T
 Y_train = data_dev[0]
 X_train = data_dev[1:n]
 
+# Creating neural network
 def init_params():
     W1 = np.random.rand(10, 784)
     b1 = np.random.rand(10, 1)
@@ -71,6 +72,13 @@ def update_params(W1, b1, W2, b2, dW1, dB1, dW2, dB2, alpha):
     b2 = b2 - alpha * dB2
 
     return W1, b1, W2, b2
+
+def get_predictions(A2):
+    return np.argmax(A2, 0)
+
+def get_accuracy(predictions, Y):
+    print(predictions, Y)
+    return np.sum(predictions == Y) / Y.size
 
 def gradient_descent(X, Y, iterations, alpha):
     W1, b1, W2, b2 = init_params()
